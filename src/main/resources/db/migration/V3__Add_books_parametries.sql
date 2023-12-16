@@ -1,0 +1,11 @@
+ALTER TABLE book
+    ADD author_book VARCHAR(255);
+
+ALTER TABLE book
+    ADD name_book VARCHAR(255);
+
+ALTER TABLE book
+    ADD post_time TIMESTAMP WITHOUT TIME ZONE;
+
+ALTER TABLE book
+    DROP COLUMN name;
