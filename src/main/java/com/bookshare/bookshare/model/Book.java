@@ -21,6 +21,12 @@ public class Book {
     @Column(name = "authorBook")
     private String authorBook;
 
+    @Column
+    private String imageUrl;
+
+    @Column
+    private String description;
+
     @Basic
     private LocalDateTime postTime;
 
