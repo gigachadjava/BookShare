@@ -15,13 +15,13 @@ public class Book {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "nameBook")
+    @Column(name = "name_book")
     private String nameBook;
 
-    @Column(name = "authorBook")
+    @Column(name = "author_book")
     private String authorBook;
 
-    @Column
+    @Column(name = "image_url")
     private String imageUrl;
 
     @Column
