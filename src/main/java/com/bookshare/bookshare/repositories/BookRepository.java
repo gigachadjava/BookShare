@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
-    Book findBookById(Long id);
+    Optional<Book> findBookById(Long id);
 
     List<Book> findAll();
 

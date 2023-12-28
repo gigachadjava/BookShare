@@ -1,5 +1,7 @@
 package com.bookshare.bookshare.controllers;
 
+import com.bookshare.bookshare.exeptions.ApiException;
+import com.bookshare.bookshare.exeptions.ResourceNotFoundException;
 import com.bookshare.bookshare.model.Book;
 import com.bookshare.bookshare.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,11 +25,11 @@ public class BookController {
 
     @GetMapping("/{id}")
     @Operation(description = "Информация о книге")
-    public ResponseEntity<Book> getBookById(
+    public Book getBookById(
             @Parameter(description = "Id книги")
             @PathVariable Long id) {
         Book book = bookService.getById(id);
-        return new ResponseEntity<>(book, HttpStatus.OK);
+        return book;
     }
 
     @GetMapping
@@ -49,13 +52,27 @@ public class BookController {
     }
     @PostMapping
     @Operation(description = "Добавить книгу")
-    public ResponseEntity<?> saveBook(@RequestBody Book book) {
+    public ResponseEntity<Book> saveBook(@RequestBody Book book) {
         return new ResponseEntity<>(bookService.save(book), HttpStatus.CREATED);
     }
 
-    @PutMapping
-    @Operation(description = "Редактирование книги")
-    public ResponseEntity<?> editBook(@RequestBody Book book) {
-        return new ResponseEntity<>(bookService.save(book), HttpStatus.ACCEPTED);
+    @PutMapping("/{id}")
+    public void updateBook(
+            @PathVariable Long id,
+            @RequestBody Book book) {
+        bookService.updateBook(book, id);
+    }
+
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ApiException handleException(ResourceNotFoundException e) {
+        ApiException apiException = new ApiException(
+                e.getMessage(),
+                e.getBadRequest(),
+                e,
+                ZonedDateTime.now()
+        );
+        return apiException;
     }
 }
