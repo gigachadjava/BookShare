@@ -28,8 +28,7 @@ public class BookController {
     public Book getBookById(
             @Parameter(description = "Id книги")
             @PathVariable Long id) {
-        Book book = bookService.getById(id);
-        return book;
+        return bookService.getById(id);
     }
 
     @GetMapping
@@ -67,12 +66,11 @@ public class BookController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ResourceNotFoundException.class)
     public ApiException handleException(ResourceNotFoundException e) {
-        ApiException apiException = new ApiException(
+        return new ApiException(
                 e.getMessage(),
                 e.getBadRequest(),
                 e,
                 ZonedDateTime.now()
         );
-        return apiException;
     }
 }
