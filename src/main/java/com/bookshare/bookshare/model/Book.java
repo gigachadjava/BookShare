@@ -15,6 +15,7 @@ public class Book {
     @Column(name = "id", nullable = false)
     private Long id;
 
+
     @Column(name = "name_book")
     private String nameBook;
 
@@ -24,7 +25,7 @@ public class Book {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @Column
+    @Column(length = 500)
     private String description;
 
     @Basic

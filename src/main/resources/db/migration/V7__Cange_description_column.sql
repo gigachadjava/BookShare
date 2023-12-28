@@ -1,0 +1,3 @@
+ALTER TABLE book
+ALTER
+COLUMN description TYPE VARCHAR(500) USING (description::VARCHAR(500));
